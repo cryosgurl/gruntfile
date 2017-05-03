@@ -18,11 +18,13 @@
   "homepage": "https://github.com/cryosgurl/gruntfile#readme",
   "devDependencies": {
     "grunt": "~0.4.4",
-    "grunt-contrib-jshint": "latest",
-    "jshint-stylish": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-sass": "latest",
     "grunt-contrib-cssmin": "latest",
-    "grunt-contrib-watch": "latest"
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-sass": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "jit-grunt": "^0.10.0",
+    "jshint-stylish": "latest",
+    "load-grunt-config": "^0.19.2"
   }
 }
