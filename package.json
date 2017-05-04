@@ -27,6 +27,8 @@
     "grunt-contrib-watch": "latest",
     "grunt-jsvalidate": "^0.2.2",
     "grunt-postcss": "^0.8.0",
+    "load-grunt-configs": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2",
     "rucksack-css": "^0.9.1"
   }
 }
