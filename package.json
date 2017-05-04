@@ -17,12 +17,16 @@
   },
   "homepage": "https://github.com/cryosgurl/gruntfile#readme",
   "devDependencies": {
+    "autoprefixer": "^6.7.7",
     "grunt": "~0.4.4",
-    "grunt-contrib-jshint": "latest",
-    "jshint-stylish": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-sass": "latest",
+    "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-cssmin": "latest",
-    "grunt-contrib-watch": "latest"
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-sass": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-jsvalidate": "^0.2.2",
+    "grunt-postcss": "^0.8.0",
+    "rucksack-css": "^0.9.1"
   }
 }

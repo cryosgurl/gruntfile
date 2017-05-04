@@ -6,7 +6,9 @@ logs
 npm-debug.log*
 
 ### Public ###
-dist/css/*
+css/*
+js/*
+style.css
 
 ### Grunt ###
 .sass-cache

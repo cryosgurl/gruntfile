@@ -1,71 +1,98 @@
-
 module.exports = function(grunt) {
-
   grunt.initConfig({
-
     pkg: grunt.file.readJSON('package.json'),
-	
-	jshint: {
-      options: {
-        reporter: require('jshint-stylish')
-      },
-
-      build: ['Gruntfile.js', 'src/**/*.js']
+    sass: {
+      dist: {
+        options: {
+          style: 'expanded',
+          sourcemap: 'none'
+        },
+        files: {
+          'style.css': 'sass/global.scss',      
+          'css/dev.style.css': 'sass/global.scss',
+        }
+      }
     },
-
+    postcss: {
+      options: {
+        processors: [
+          require('autoprefixer')(),
+          require('rucksack-css')({ fallbacks: true })
+        ]
+      },
+      dist: {
+        src: 'style.css',
+        dest: 'style.css'
+      },
+      dev: {
+        src: 'css/dev.style.css',
+        dest: 'css/dev.style.css'
+      },
+    },
+    cssmin: {
+      target: {
+        files: {
+          'style.css': 'style.css'
+        }
+      }
+    },
+    concat: {
+      dist: {
+        src: [
+          'js/lib/no-conflict.js',
+          'js/lib/skip-navigation.js',
+        ],
+        dest: 'js/scripts.js'
+      },
+    },
+    jshint: {
+      files: [
+        'js/scripts.js',
+        'js/ie.js',
+      ],
+      options: {
+        scripturl: true,
+        globals: {
+          jQuery: true
+        }
+      }
+    },
     uglify: {
       options: {
-        banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
+        mangle: false,
+        compress: true,
+        quoteStyle: 3
       },
-      build: {
+      dist: {
         files: {
-          'dist/js/magic.min.js': ['src/js/magic.js', 'src/js/magic2.js']
+          'js/head.min.js': 'js/head.js',
+          'js/scripts.min.js': 'js/scripts.js',
+          'js/ie.min.js'     : 'js/ie.js',
         }
       }
     },
-	
-	sass: {
+    watch: {
+      scripts: {
+        files: ['js/**/*.js'],
+        tasks: ['concat', 'uglify'],
         options: {
-			compress: false,
-			sourcemap: 'none'
-		},
-		dist: {
-			files: {
-				'dist/css/main.css': 'dist/scss/main.scss'
-			}
-		}
-    },
-	
-	 cssmin: {
-      options: {
-        banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
-      },
-      build: {
-        files: {
-          'dist/css/style.min.css': 'src/css/style.css'
+          spawn: false
         }
+      },
+      css: {
+        files: ['sass/**/*.scss'],
+        tasks: ['sass', 'postcss', 'cssmin']
       }
     },
-	
-	watch: {	
-		files: ['src//*.css', 'src//*.less'], 
-		tasks: ['less', 'cssmin'] 
-	},
-
-	scripts: { 
-		files: 'src/**/*.js', tasks: ['jshint', 'uglify'] 
-  } 
-
   });
-
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-postcss');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jsvalidate');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   
-  grunt.registerTask('default', ['jshint', 'uglify', 'sass', 'cssmin', 'watch']); 
-
+  grunt.registerTask('default', ['jshint','uglify','sass','postcss','concat','cssmin','watch']);
 };
-
-	
